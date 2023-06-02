@@ -7,13 +7,11 @@ For any technical questions, please contact info@accelerynt.com
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FAS-Incident-IP-Matched-on-Watchlist%2Fmain%2Fazuredeploy.json)
 [![Deploy to Azure Gov](https://aka.ms/deploytoazuregovbutton)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FAS-Incident-IP-Matched-on-Watchlist%2Fmain%2Fazuredeploy.json)       
 
-This playbook is intended to be run from a Microsoft Sentinel incident. If any IP entities are found to match those in a specified watchlist containing a list of subnets, a comment noting this match will be added to the incident and the incident will be tagged with a label of your choosing.
+This playbook is intended to be run from a Microsoft Sentinel incident. If any IP entities are found to match those in a specified watchlist containing a list of subnets, a comment noting the match(es) will be added to the incident and the incident will be tagged with a label of your choosing.
 
 ![IPMatchedOnWatchlist_Demo_1](Images/IPMatchedOnWatchlist_Demo_1.png)
-
-![IPMatchedOnWatchlist_Demo_2](Images/IPMatchedOnWatchlist_Demo_2.png)
  
-                                                                                                                                
+                                                                                                                            
 #
 ### Requirements
                                                                                                                                      
@@ -41,22 +39,19 @@ Fill out the required fields and take note of the value you use for "**Alias**" 
 
 ![IPMatchedOnWatchlist_Create_Watchlist_2](Images/IPMatchedOnWatchlist_Create_Watchlist_2.png)
 
-The watchlist cannot be created without initial data. We have created a file with the necessary headers and an entry that can later be deleted from the watchlist once it has been updated with additional entries.
+The watchlist cannot be created without initial data. A template for a watchlist containing subnets can be found here: https://learn.microsoft.com/en-us/azure/sentinel/watchlist-schemas#network-mapping
 
-Upload the "**watchlist_initialize.csv**" included in this repository and select "**id**" as the search key. Then click "**Next: Review and create**".
+Upload your .csv file and be sure to select the field containing the subnet values as the search key. Then click "**Next: Review and create**".
 
 ![IPMatchedOnWatchlist_Create_Watchlist_3](Images/IPMatchedOnWatchlist_Create_Watchlist_3.png)
 
 Review the information, then click "**Create**".
+
 ![IPMatchedOnWatchlist_Create_Watchlist_4](Images/IPMatchedOnWatchlist_Create_Watchlist_4.png)
 
-Once your watchlist has been created, you can view the entries by clicking the watchlist name from the "**Overview**" page, and then clicking "**View in logs**".
+Once your watchlist has been created, you can view the entries by clicking the watchlist name from the "**Overview**" page, and then clicking "**View in logs**". This will run a Kusto query for your watchlist and you should be able to see the initializing data that was just uploaded. Please note it may take a minute after the creation of your watchlist for the query to show results. Alternatively, the watchlist items can be edited by clicking "**Update watchlist**".
 
 ![IPMatchedOnWatchlist_Create_Watchlist_5](Images/IPMatchedOnWatchlist_Create_Watchlist_5.png)
-
-This will run a Kusto query for your watchlist and you should be able to see the initializing data that was just uploaded. Please note it may take a minute after the creation of your watchlist for the query to show results.
-
-![IPMatchedOnWatchlist_Create_Watchlist_6](Images/IPMatchedOnWatchlist_Create_Watchlist_6.png)
 
 
 #### Microsoft Sentinel Workspace Id:
