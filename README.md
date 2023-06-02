@@ -11,7 +11,9 @@ This playbook is intended to be run from a Microsoft Sentinel incident. If any I
 
 ![IPMatchedOnWatchlist_Demo_1](Images/IPMatchedOnWatchlist_Demo_1.png)
  
-                                                                                                                            
+ ![IPMatchedOnWatchlist_Demo_2](Images/IPMatchedOnWatchlist_Demo_2.png)
+
+                                                                                                            
 #
 ### Requirements
                                                                                                                                      
@@ -54,7 +56,7 @@ Once your watchlist has been created, you can view the entries by clicking the w
 ![IPMatchedOnWatchlist_Create_Watchlist_5](Images/IPMatchedOnWatchlist_Create_Watchlist_5.png)
 
 
-#### Microsoft Sentinel Workspace Id:
+#### Microsoft Sentinel Resource Group Name:
 
 Navigate to the Microsoft Sentinel page and select the same workspace as before:
 
@@ -62,11 +64,11 @@ https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/microso
 
 Under the "**Configuration**" section of the menu, click "**Settings**", then click the "**Workspace settings**" tab.
 
-![IPMatchedOnWatchlist_Workspace_Id_1](Images/IPMatchedOnWatchlist_Workspace_Id_1.png)
+![IPMatchedOnWatchlist_Resource_Group_Name_1](Images/IPMatchedOnWatchlist_Resource_Group_Name_1.png)
 
-Copy the value of the "**Workspace ID**" field and save it for deployment.
+Copy the value of the "**Resource Group Name**" field and save it for deployment. You will also need to take note of the workspace name.
 
-![IPMatchedOnWatchlist_Workspace_Id_2](Images/IPMatchedOnWatchlist_Workspace_Id_2.png)
+![IPMatchedOnWatchlist_Resource_Group_Name_2](Images/IPMatchedOnWatchlist_Resource_Group_Name_2.png)
 
 
 #
@@ -93,9 +95,9 @@ In the **Instance Details** section:
 
 * **Watchlist Name**: The name of the watchlist referenced in [Create a Microsoft Sentinel Watchlist](https://github.com/Accelerynt-Security/AS-Import-AD-Group-Users-to-MS-Watchlist#create-a-microsoft-sentinel-watchlist)
 
-* **Workspace Id**: The Id of the Microsoft Sentinel workspace the watchlist was created in, referenced in [Microsoft Sentinel workspace Id](https://github.com/Accelerynt-Security/AS-Import-AD-Group-Users-to-MS-Watchlist#microsoft-sentinel-workspace-id)
+* **Workspace Name**: The name of the Microsoft Sentinel workspace the watchlist was created in, referenced in [Microsoft Sentinel Resource Group Name](https://github.com/Accelerynt-Security/AS-Import-AD-Group-Users-to-MS-Watchlist#microsoft-sentinel-resource-group-name)
 
-* **Resource Group Name**: The name of the Microsoft Sentinel resource group the workspace is housed in
+* **Resource Group Name**: The name of the Microsoft Sentinel resource group the workspace is housed in, referenced in [Microsoft Sentinel Resource Group Name](https://github.com/Accelerynt-Security/AS-Import-AD-Group-Users-to-MS-Watchlist#microsoft-sentinel-resource-group-name)
 
 * **Incident Tag**: The name of the tag to add to the Microsoft Sentinel incident
 
@@ -134,18 +136,3 @@ Select the "**Managed identity**" option, then click "**Select Members**". Under
 Continue on to the "**Review + assign**" tab and click "**Review + assign**".
 
 ![IPMatchedOnWatchlist_Add_Contributor_Role_4](Images/IPMatchedOnWatchlist_Add_Contributor_Role_4.png)
-
-
-**Alternatively**, if you wish to do this through PowerShell, run the following commands, replacing the managed identity object id and resource group name. You can find the managed identity object id on the Identity blade under Settings for the Logic App.
-
-![IPMatchedOnWatchlist_Add_Contributor_Role_5](Images/IPMatchedOnWatchlist_Add_Contributor_Role_5.png)
-
-You will not need to run the Install-Module if this has been done before. More documentation on this module can be found here:
-
-https://learn.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-9.3.0
-
-```powershell
-Install-Module -Name Az
-Connect-AzAccount
-New-AzRoleAssignment -ObjectId <logic app managed identity object id> -RoleDefinitionName "Microsoft Sentinel Contributor" -ResourceGroupName "<logic app resource group name>"
-```
